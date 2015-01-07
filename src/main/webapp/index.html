@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Endpoints!</title>
+    <script async src="/js/base.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<form class="form-horizontal" id="new-form">
+				<fieldset>
+				
+				<!-- Form Name -->
+				<legend>Nouveau Bar</legend>
+				
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="id">Id</label>  
+				  <div class="col-md-4">
+				  	<input id="id" name="id" type="text" placeholder="id" class="form-control input-md" required="">
+				  	<span class="help-block">Integer</span>  
+				  </div>
+				</div>
+				
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="name">Name</label>  
+				  <div class="col-md-4">
+				  	<input id="name" name="name" type="text" placeholder="Olivarius" class="form-control input-md" required="">
+				  	<span class="help-block">String</span>  
+				  </div>
+				</div>
+				
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="lat">Latitude</label>  
+				  <div class="col-md-4">
+				  	<input id="lat" name="lat" type="text" placeholder="23.12" class="form-control input-md" required="">
+				  	<span class="help-block">number</span>  
+				  </div>
+				</div>
+				
+				<!-- Text input-->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="lon">Longitude</label>  
+				  <div class="col-md-4">
+				  <input id="lon" name="lon" type="text" placeholder="65.43" class="form-control input-md" required="">
+				  <span class="help-block">number</span>  
+				  </div>
+				</div>
+				
+				<!-- Button -->
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="submit"></label>
+				  <div class="col-md-4">
+				    <button id="submit" name="submit" class="btn btn-primary">Créer</button>
+				  </div>
+				</div>
+				
+				</fieldset>
+				</form>
+		</div>
+		<div class="col-sm-6">
+			<ul id="bars-list"></ul>
+		</div>
+	</div>
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+    	$(document).ready(function(){
+    		$.ajax({
+    			type: "GET",
+    			url: "/_ah/api/bar/v1/barcollection",
+    			success: function(response){
+    				console.log(response);
+    				$("#bars-list").html("");
+    				if(response.items != null){
+    					for(var i = 0; i < response.items.length; i++){
+    						$("#bars-list").append("<li>" + response.items[i].name + "</li>");
+    					}
+    				}
+    			}
+    		});
+    		
+    		$("#new-form").submit(function(){
+    			var id = $("#id").val();
+    			var name = $("#name").val();
+    			var lat = $("#lat").val();
+    			var lon = $("#lon").val();
+    			$.ajax({
+        			type: "POST",
+        			url: "/_ah/api/bar/v1/addBar/" + id + "/" + name + "/" + lat + "/" + lon,
+        			success: function(response){
+        				console.log(response);
+        			}
+        		});
+    		});
+    	});
+    </script>
+</div>
+</body>
+</html>
