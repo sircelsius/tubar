@@ -62,6 +62,10 @@ Here's what we may want to develop in the near future (in no particular order):
   * Algorithm variants: 
     * [Neural Network](http://en.wikipedia.org/wiki/Artificial_neural_network).
     * [Complex stuff using Genetic Clustering to make the SA faster](http://dos.iitm.ac.in/LabPapers/parallelSAJPDC.pdf).
+  * Work on `io.tubar.distance.DistanceCalculator` to minimize the number of queries to the Google Maps Distance Matrix API.
+  * Do some cool stuff to dynamically change the temperature, minimum temperature and cooling factor of the simulated annealing based on some parameters like:
+    * the average distance between bars.
+    * the standard deviations in the input series
 
 ## Reference
 
