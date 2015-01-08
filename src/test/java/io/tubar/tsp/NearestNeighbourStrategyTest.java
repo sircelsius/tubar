@@ -1,7 +1,7 @@
 package io.tubar.tsp;
 
 import io.tubar.data.Bar;
-import io.tubar.tsp.NearestNeighbourStrategy;
+import io.tubar.data.BarService;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,8 @@ public class NearestNeighbourStrategyTest {
 	@Test
 	public void test() {
 		NearestNeighbourStrategy strategy = new NearestNeighbourStrategy();
+		
+		BarService barService = new BarService();
 		
 		Bar bar1 = new Bar(1, "Olivarius", 49.033964, 2.067468);
 		Bar bar2 = new Bar(2, "Cafe de la Presse", 48.850312, 2.368967);
@@ -25,7 +27,13 @@ public class NearestNeighbourStrategyTest {
 		orig.add(bar3);
 		orig.add(bar4);
 		
+		Long origLength = barService.getTotalLength(orig);
+		
 		ArrayList<Bar> res = strategy.execute(orig);
+		
+		Long finalLength = barService.getTotalLength(res);
+		
+		System.out.println("Original length - Initial length = " + (origLength - finalLength));
 		
 		Long executionTime = strategy.getExecutionTime();
 		executionTime = executionTime / 1000000;

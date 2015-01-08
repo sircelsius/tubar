@@ -1,5 +1,6 @@
 package io.tubar.tsp;
 
+import static org.junit.Assert.assertTrue;
 import io.tubar.data.Bar;
 import io.tubar.data.BarService;
 import io.tubar.tsp.NearestNeighbourStrategy;
@@ -62,7 +63,9 @@ public class TSPCalculatorTest {
 		
 		System.out.println("Optimizing...");
 		
-		ArrayList<Bar> res = calculator.calculateTSP(init);
+		ArrayList<Bar> res = new ArrayList<Bar>(); 
+				
+		res = calculator.calculateTSP(init);
 		
 		for (int i = 0; i < res.size(); i++) {
 			System.out.println("Bar " + i + ": " + res.get(i).getName());
@@ -75,6 +78,8 @@ public class TSPCalculatorTest {
 		long resLength = barService.getTotalLength(res);
 		
 		System.out.println("Optimal distance: " + resLength);
+		
+		assertTrue(resLength <= initLength);
 	}
 
 }
